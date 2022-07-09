@@ -1,12 +1,21 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express } from 'express';
 
+import * as trpcExpress from '@trpc/server/adapters/express';
+import { appRouter, createContext } from './trpc';
+
+
+// EXPRESS
 const app: Express = express();
 const port = 5006;
 
-app.get('/something/:id', (req: Request, res: Response) => {
-  console.log('[ms-1] get /something/:id called with id', req.params.id)
-  res.send({ name: `Hi from ms-1, called with id: ${req.params.id}` });
-});
+app.use(
+  '/trpc',
+  trpcExpress.createExpressMiddleware({
+    router: appRouter,
+    createContext,
+  })
+);
+
 
 app.listen(port, () => {
   console.log(`[ms-1]: Server is running at http://localhost:${port}`);

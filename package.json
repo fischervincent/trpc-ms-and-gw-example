@@ -1,6 +1,11 @@
 {
   "name": "trpc-poc",
   "private": true,
+  "workspaces": [
+    "ms-1",
+    "gw",
+    "client"
+  ],
   "devDependencies": {
     "lerna": "^5.1.8"
   }
