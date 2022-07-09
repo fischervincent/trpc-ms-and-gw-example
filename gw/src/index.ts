@@ -7,6 +7,11 @@ const gwPort = 4003;
 const ms1Port = 5006;
 const ms1Url = `http://localhost:${ms1Port}`;
 
+app.use((req, res, next) => {
+  res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+  next()
+})
+
 app.get('/', async (req: Request, res: Response) => {
   console.log('[gw] get / called')
   const ms1Res = await axios.get(`${ms1Url}/`);
