@@ -3,14 +3,18 @@ import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 
 const queryClient = new QueryClient();
 
-const fetchSomething = async () => {
-  const gwUrl = `http://localhost:4003/`;
+const fetchSomethingById = (id: number) => async () => {
+  const gwUrl = `http://localhost:4003/something/${id}`;
   const res = await fetch(gwUrl);
   return res.json();
 };
 
 function Something() {
-  const { isLoading, error, data } = useQuery(["repoData"], fetchSomething);
+  const somethingId = 99;
+  const { isLoading, error, data } = useQuery(
+    ["getSomethingById", somethingId],
+    fetchSomethingById(somethingId)
+  );
 
   if (isLoading) return <div>Loading...</div>;
 

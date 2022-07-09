@@ -12,9 +12,9 @@ app.use((req, res, next) => {
   next()
 })
 
-app.get('/', async (req: Request, res: Response) => {
-  console.log('[gw] get / called')
-  const ms1Res = await axios.get(`${ms1Url}/`);
+app.get('/something/:id', async (req: Request, res: Response) => {
+  console.log('[gw] get /something/:id called with id', req.params.id)
+  const ms1Res = await axios.get(`${ms1Url}/something/${req.params.id}/`);
   console.log('[gw] ms-1 response:', ms1Res.data);
   res.send(ms1Res.data);
 });
